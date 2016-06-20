@@ -6,6 +6,7 @@ using namespace std;
 #ifndef MONSTER_H
 #define MONSTER_H
 
+// Base Class for every monster in the game
 class Monster
 {
 private:
@@ -18,6 +19,7 @@ private:
 	double currDefense;
 	double speed;
 	double currSpeed;
+	bool isPlayerMon;
 
 	int moveNumber;
 	double calcDamage( Monster *e, double attPow );
@@ -26,8 +28,8 @@ private:
 public:
 	// CONSTRUCTORS
 	Monster(){}
-	Monster( const string &n, const double &th, const double &s, const double &d, const double &sp, const int &m )
-		:name( n ), totalHealth( th ), strength( s ), defense( d ), speed(sp), moveNumber( m )
+	Monster( const string &n, const double &th, const double &s, const double &d, const double &sp, const int &m, const bool &ipm )
+		:name( n ), totalHealth( th ), strength( s ), defense( d ), speed(sp), moveNumber( m ), isPlayerMon( ipm )
 	{
 		currHealth = totalHealth;
 		currStrength = strength;
@@ -62,11 +64,13 @@ public:
 	double getCurrDefense(){ return currDefense; }
 	void setCurrDefense( const double &d ){ currDefense = d; }
 	double getSpeed(){ return speed; }
-	void setSpeed( const int &sp ){ speed = sp; }
+	void setSpeed( const double &sp ){ speed = sp; }
 	double getCurrSpeed(){ return currSpeed; }
-	void setCurrSpeed( const int &sp ){ currSpeed = sp; }
+	void setCurrSpeed( const double &sp ){ currSpeed = sp; }
 	int getMoveNumber(){ return moveNumber; }
 	void setMoveNumber( const int &m ){ moveNumber = m; }
+	int getIsPlayerMon(){ return isPlayerMon;  }
+	void setIsPlayerMon( const bool &ipm ){ isPlayerMon = ipm; }
 	// -- End Accessors and Mutators
 
 	virtual void attack( Monster *e ) = 0;
@@ -90,6 +94,6 @@ public:
 
 
 	// } END PROTOTYPES FOR EVERY MOVE IN THE GAME
-};
+}; // end class Monster
 
 #endif MONSTER_H
