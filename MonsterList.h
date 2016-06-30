@@ -80,7 +80,7 @@ class Flamingwondo : public Monster
 {
 public:
 	Flamingwondo( const int &m, const bool &ipm )
-		:Monster( "FLAMINGWONDO", 35, 30, 20, 20, m, ipm ){}
+		:Monster( "FLAMINGWONDO", 35, 35, 20, 20, m, ipm ){}
 	virtual void attack( Monster *e )
 	{
 		switch( getMoveNumber() )

@@ -12,8 +12,8 @@ void Battle::battleLoop()
 	setUpTurnOrder();
 	displayIntro();
 
-	while( ( playerMonster1->getHealth() > 0 || playerMonster2->getHealth() > 0 )	// battle while at least one member of each team still has hp left
-		&& ( oppMonster1->getHealth() > 0 || oppMonster2->getHealth() > 0 ) )		// ^^^
+	while( ( playerMonster1->getCurrHealth() > 0 || playerMonster2->getCurrHealth() > 0 )	// battle while at least one member of each team still has hp left
+		&& ( oppMonster1->getCurrHealth() > 0 || oppMonster2->getCurrHealth() > 0 ) )		// ^^^
 	{
 		cout << endl;
 		cout << "TURN: " << turnCounter << endl;
@@ -22,9 +22,9 @@ void Battle::battleLoop()
 
 		for( int i = 0; i < 4; i++ )
 		{
-			if( turnOrder[ i ]->getHealth() > 0 &&											// battle if attacking monster is not fainted
-				( ( playerMonster1->getHealth() > 0 || playerMonster2->getHealth() > 0 )	// battle if at least one member of each team still has hp left
-				&& ( oppMonster1->getHealth() > 0 || oppMonster2->getHealth() > 0 ) ) )		// ^^^
+			if( turnOrder[ i ]->getCurrHealth() > 0 &&											// battle if attacking monster is not fainted
+				( ( playerMonster1->getCurrHealth() > 0 || playerMonster2->getCurrHealth() > 0 )	// battle if at least one member of each team still has hp left
+				&& ( oppMonster1->getCurrHealth() > 0 || oppMonster2->getCurrHealth() > 0 ) ) )		// ^^^
 			{
 				if( turnOrder[ i ]->getIsPlayerMon() == true )
 					playerTurn( turnOrder[ i ] );
@@ -35,6 +35,7 @@ void Battle::battleLoop()
 		turnCounter++;
 	} // end while
 	displayWinLoss();
+	resetAllMonsterStats();
 } // end battleLoop function
 
 // sets all of the monsters into the turnOrder vector
@@ -92,22 +93,22 @@ void Battle::battleMenu( Monster *m )
 			while( opt2 != 1 && opt2 != 2 && opt2 != 3 )	// continue in this submenu while the user does not attack 
 			{												// or go back to the previous menu
 				cout << "Which monster should your " << m->getName() << " to attack?" << endl;
-				if( oppMonster1->getHealth() > 0 )			// only display enemy Monster as an attacking option if it is still active
+				if( oppMonster1->getCurrHealth() > 0 )			// only display enemy Monster as an attacking option if it is still active
 					cout << "1: " << oppMonster1->getName() << endl;
-				if( oppMonster2->getHealth() > 0 )			// only display enemy Monster as an attacking option if it is still active
+				if( oppMonster2->getCurrHealth() > 0 )			// only display enemy Monster as an attacking option if it is still active
 					cout << "2: " << oppMonster2->getName() << endl;
 				cout << "3: Go Back" << endl;
 				cin >> opt2;
 				switch( opt2 )
 				{
 				case 1:	// attack Opponent Monster 1
-					if( oppMonster1->getHealth() > 0 )	// if selected monster is fainted, attack the other one
+					if( oppMonster1->getCurrHealth() > 0 )	// if selected monster is fainted, attack the other one
 						m->attack( oppMonster1 );
 					else
 						m->attack( oppMonster2 );
 					break;
 				case 2:	// attack Opponent Monster 2
-					if( oppMonster2->getHealth() > 0 )	// if selected monster is fainted, attack the other one
+					if( oppMonster2->getCurrHealth() > 0 )	// if selected monster is fainted, attack the other one
 						m->attack( oppMonster2 );
 					else
 						m->attack( oppMonster1 );
@@ -145,18 +146,18 @@ void Battle::enemyTurn( Monster *e )
 	switch( opt )
 	{
 	case 0:
-		if( playerMonster1->getHealth() > 0 )	// if selected monster is fainted, attack the other one
+		if( playerMonster1->getCurrHealth() > 0 )	// if selected monster is fainted, attack the other one
 			e->attack( playerMonster1 );
-		else if( playerMonster2->getHealth() > 0 )
+		else if( playerMonster2->getCurrHealth() > 0 )
 			e->attack( playerMonster2 );
 		break;
 	case 1:
-		if( playerMonster2->getHealth() > 0 )	// if selected monster is fainted, attack the other one
+		if( playerMonster2->getCurrHealth() > 0 )	// if selected monster is fainted, attack the other one
 			e->attack( playerMonster2 );
-		else if( playerMonster1->getHealth() > 0 )
+		else if( playerMonster1->getCurrHealth() > 0 )
 			e->attack( playerMonster1 );
 		break;
-	}
+	} // end switch
 } // end enemyTurn function
 
 // displays the health of all Monsters on the field
@@ -179,15 +180,23 @@ void Battle::displayHealth()
 // makes negative values equal to 0 for nicer display purposes
 void Battle::fixHealth()
 {
-	if( playerMonster1->getHealth() < 0 )
-		playerMonster1->setHealth( 0 );
-	if( playerMonster2->getHealth() < 0 )
-		playerMonster2->setHealth( 0 );
-	if( oppMonster1->getHealth() < 0 )
-		oppMonster1->setHealth( 0 );
-	if( oppMonster2->getHealth() < 0 )
-		oppMonster2->setHealth( 0 );
+	if( playerMonster1->getCurrHealth() < 0 )
+		playerMonster1->setCurrHealth( 0 );
+	if( playerMonster2->getCurrHealth() < 0 )
+		playerMonster2->setCurrHealth( 0 );
+	if( oppMonster1->getCurrHealth() < 0 )
+		oppMonster1->setCurrHealth( 0 );
+	if( oppMonster2->getCurrHealth() < 0 )
+		oppMonster2->setCurrHealth( 0 );
 } // end function fixHealth
+
+void Battle::resetAllMonsterStats()
+{
+	playerMonster1->resetStats();
+	playerMonster2->resetStats();
+	oppMonster1->resetStats();
+	oppMonster2->resetStats();
+}
 
 // displays Battle Intro
 void Battle::displayIntro()
@@ -202,7 +211,7 @@ void Battle::displayIntro()
 // calculates and displays win/loss
 void Battle::displayWinLoss()
 {
-	if( playerMonster1->getHealth() <= 0 && playerMonster2->getHealth() <= 0 )
+	if( playerMonster1->getCurrHealth() <= 0 && playerMonster2->getCurrHealth() <= 0 )
 		cout << "You Lose! Try Again." << endl;
 	else
 		cout << "You Win! Nice Job." << endl;
@@ -213,5 +222,5 @@ void Battle::displayWinLoss()
 void Battle::pressEnter()
 {
 	cout << "vvv";
-	cin.ignore();
+	while( getchar() != '\n' );
 } // end pressEnter function
