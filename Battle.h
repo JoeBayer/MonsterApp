@@ -28,9 +28,9 @@ private:
 	void battleMenu(Monster *m);
 	void displayHealth();
 	void fixHealth();
+	void resetAllMonsterStats();
 	void displayIntro();
 	void displayWinLoss();
-	void pressEnter();
 	// CONSTRUCTORS
 	Battle(){}
 	Battle( Monster *p1, Monster *p2, Monster *e1, Monster *e2 )
@@ -48,6 +48,8 @@ public:
 
 	// This function is where the fun happens!
 	void battleLoop();
+
+	void pressEnter();
 
 	// ACCESSORS / MUTATORS
 	Monster* getPlayerMonster1(){ return playerMonster1; }

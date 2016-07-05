@@ -13,16 +13,21 @@ private:
 	string name;
 	double totalHealth;
 	double currHealth;
+
 	double strength;
 	double currStrength;
+
 	double defense;
 	double currDefense;
+
 	double speed;
 	double currSpeed;
+
 	bool isPlayerMon;
 
 	int moveNumber;
 	double calcDamage( Monster *e, double attPow );
+	bool accCheck( const int &num );
 
 	
 public:
@@ -53,8 +58,8 @@ public:
 	void setName( const string &n ){ name = n; }
 	double getTotalHealth(){ return totalHealth; }
 	void setTotalHealth( const double &th ){ totalHealth = th; }
-	double getHealth(){ return currHealth; }
-	void setHealth( const double &h ){ currHealth = h; }
+	double getCurrHealth(){ return currHealth; }
+	void setCurrHealth( const double &h ){ currHealth = h; }
 	double getStrength(){ return strength; }
 	void setStrength( const double &s ){ strength = s; }
 	double getCurrStrength(){ return currStrength; }
@@ -72,6 +77,7 @@ public:
 	int getIsPlayerMon(){ return isPlayerMon;  }
 	void setIsPlayerMon( const bool &ipm ){ isPlayerMon = ipm; }
 	// -- End Accessors and Mutators
+	void resetStats();
 
 	virtual void attack( Monster *e ) = 0;
 
