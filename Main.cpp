@@ -2,6 +2,17 @@
 //-----------//
 //-CHANGELOG-//
 //-----------//
+// 7/5/2016
+// CHANGES
+// - Added Acurracy Check function in Monster class
+//		- removes redundancy, makes checking accuracy a lot easier
+// BUGS
+// - Text is broken up during SOME moves that hit twice
+// - Odd Spacing will randomly occur
+// FUTURE UPDATES
+// - Make a seperate class for moves ( rather than having them all be under the Monster class )
+//		- Monster class should feature a "HAS A" relationship with the upcoming Move class
+
 // 6/26/2016
 // CHANGES
 // - Fixed SOME spacing issues
@@ -10,7 +21,7 @@
 // - Added reset all stats function to battle.cpp to reset the stats of all monsters that take part in a battle after it is over
 // - Added Comments to make multiple parts of the program more readable
 // BUGS
-// - Text isn't broken up during SOME moves that hit twice
+// - Text is broken up during SOME moves that hit twice
 // - Odd Spacing will randomly occur
 
 // 6/19/2016
@@ -31,7 +42,7 @@ int main()
 {
 	srand( time( 0 ) );	// seed time
 	Monster *playMon1 = new Flamingwondo( 2, true );	// set up player Monster pointers
-	Monster *playMon2 = new CoolCat( 3, true );
+	Monster *playMon2 = new BlockBert( 1, true );
 
 	Monster *oppMon1 = new BlockBert( 1, false );	// set up enemy Monster pointers
 	Monster *oppMon2 = new CoolerThanCoolCat( 1, false );

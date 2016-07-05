@@ -33,6 +33,16 @@ double Monster::calcDamage( Monster *e, double attPow )
 				* (((rand() % 22 + 1)/100.0) + 1 - .11);	// randomness modifier
 } // end function calcDamage
 
+// roll accuracy check and return true if hit, false if miss
+bool Monster::accCheck( const int &num )
+{
+	int acc = rand() % 100 + 1;
+	if( acc <= num )
+		return true;
+	else
+		return false;
+} // end function accuracyCheck
+
 // reset the current stats of the monster to normal
 void Monster::resetStats()
 {
@@ -48,8 +58,8 @@ void Monster::resetStats()
 // TACKLE Family
 void Monster::Tackle( Monster *e )
 {
-	int acc = rand() % 100 + 1;
-	if( acc > 5 )
+	int moveAcc = 95;
+	if( accCheck( moveAcc ) )
 	{
 		double attPow = 35;
 		double damage = calcDamage( e, attPow );
@@ -62,8 +72,8 @@ void Monster::Tackle( Monster *e )
 } // end Tackle Class
 void Monster::SuperTackle( Monster *e )
 {
-	int acc = rand() % 100 + 1;
-	if( acc > 5 )
+	int moveAcc = 95;
+	if( accCheck( moveAcc ) )
 	{
 		double attPow = 45;
 		double damage = calcDamage( e, attPow );
@@ -76,8 +86,8 @@ void Monster::SuperTackle( Monster *e )
 } // end SuperTackle class
 void Monster::HyperTackle( Monster *e )
 {
-	int acc = rand() % 100 + 1;
-	if( acc > 5 )
+	int moveAcc = 95;
+	if( accCheck( moveAcc ) )
 	{
 		double attPow = 55;
 		double damage = calcDamage( e, attPow );
@@ -136,8 +146,8 @@ void Monster::RagingSwipe( Monster *e )
 	double attPow = 20;
 	double damage = calcDamage( e, attPow );
 	// Hits Twice
-	int acc = rand() % 100 + 1;
-	if( acc > 15 )
+	int moveAcc = 85;
+	if( accCheck( moveAcc ) )
 	{
 		e->setCurrHealth( e->getCurrHealth() - damage );
 		displayAttack( "RAGING SWIPE", damage, e );
@@ -147,9 +157,8 @@ void Monster::RagingSwipe( Monster *e )
 
 	if( e->getCurrHealth() > 0 )
 	{
-		acc = rand() % 100 + 1;
 		cout << endl;
-		if( acc > 15 )
+		if( accCheck( moveAcc ) )
 		{
 			e->setCurrHealth( e->getCurrHealth() - damage );
 			displayAttack( "RAGING SWIPE", damage, e );
