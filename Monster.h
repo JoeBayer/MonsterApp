@@ -27,6 +27,7 @@ private:
 
 	int moveNumber;
 	double calcDamage( Monster *e, double attPow );
+	bool accCheck( const int &num );
 
 	
 public:
