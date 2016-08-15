@@ -1,7 +1,5 @@
-#include<iostream>
-#include<string>
+#include"IncludeThis.h"
 #include<time.h>
-using namespace std;
 
 #ifndef MONSTER_H
 #define MONSTER_H
@@ -13,16 +11,21 @@ private:
 	string name;
 	double totalHealth;
 	double currHealth;
+
 	double strength;
 	double currStrength;
+
 	double defense;
 	double currDefense;
+
 	double speed;
 	double currSpeed;
+
 	bool isPlayerMon;
 
 	int moveNumber;
 	double calcDamage( Monster *e, double attPow );
+	bool accCheck( const int &num );
 
 	
 public:
@@ -48,30 +51,35 @@ public:
 	void displayStatus();
 	void displayAttack( const string &n, const double &d, Monster *e );
 
-	// ACCESSORS / MUTATORS
+	// ACCESSORS
 	string getName(){ return name; }
-	void setName( const string &n ){ name = n; }
 	double getTotalHealth(){ return totalHealth; }
-	void setTotalHealth( const double &th ){ totalHealth = th; }
-	double getHealth(){ return currHealth; }
-	void setHealth( const double &h ){ currHealth = h; }
+	double getCurrHealth(){ return currHealth; }
 	double getStrength(){ return strength; }
-	void setStrength( const double &s ){ strength = s; }
 	double getCurrStrength(){ return currStrength; }
-	void setCurrStrength( const double &s ){ currStrength = s; }
 	double getDefense(){ return defense; }
-	void setDefense( const double &d ){ defense = d; }
 	double getCurrDefense(){ return currDefense; }
-	void setCurrDefense( const double &d ){ currDefense = d; }
 	double getSpeed(){ return speed; }
-	void setSpeed( const double &sp ){ speed = sp; }
 	double getCurrSpeed(){ return currSpeed; }
-	void setCurrSpeed( const double &sp ){ currSpeed = sp; }
 	int getMoveNumber(){ return moveNumber; }
-	void setMoveNumber( const int &m ){ moveNumber = m; }
 	int getIsPlayerMon(){ return isPlayerMon;  }
+
+	// MUTATORS
+	void setName( const string &n ){ name = n; }
+	void setTotalHealth( const double &th ){ totalHealth = th; }
+	void setCurrHealth( const double &h ){ currHealth = h; }
+	void setStrength( const double &s ){ strength = s; }
+	void setCurrStrength( const double &s ){ currStrength = s; }
+	void setDefense( const double &d ){ defense = d; }
+	void setCurrDefense( const double &d ){ currDefense = d; }
+	void setSpeed( const double &sp ){ speed = sp; }
+	void setCurrSpeed( const double &sp ){ currSpeed = sp; }
+	void setMoveNumber( const int &m ){ moveNumber = m; }
 	void setIsPlayerMon( const bool &ipm ){ isPlayerMon = ipm; }
+
+
 	// -- End Accessors and Mutators
+	void resetStats();
 
 	virtual void attack( Monster *e ) = 0;
 

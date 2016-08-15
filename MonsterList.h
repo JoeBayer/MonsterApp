@@ -1,9 +1,11 @@
-#include<iostream>
+#include"IncludeThis.h"
 #include"Monster.h"
-using namespace std;
+#include"ActionCardList.h"
 
 #ifndef MONSTERLIST_H
 #define MONSTERLIST_H
+class Deck;
+
 class BlockBert : public Monster
 {
 public:
@@ -80,7 +82,7 @@ class Flamingwondo : public Monster
 {
 public:
 	Flamingwondo( const int &m, const bool &ipm )
-		:Monster( "FLAMINGWONDO", 35, 30, 20, 20, m, ipm ){}
+		:Monster( "FLAMINGWONDO", 35, 35, 20, 20, m, ipm ){}
 	virtual void attack( Monster *e )
 	{
 		switch( getMoveNumber() )
